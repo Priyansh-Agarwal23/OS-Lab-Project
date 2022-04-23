@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "style.css">
+</head>
+<body>
+    <div>
+        <h1 class="algo2heading">Optimal Page Replacement</h1>
+    </div>
+
+    <div class ="mainbody2">
+        
+         <h3>Theory</h3>
+        
+        <div>
+            <p class="algo2para1">
+                In this algorithm, OS replaces the page that will not be used for the longest period of time in future.<br><br>
+                <b>Important points about Optimal page replacement algorithm:</b><br>
+                1. The consequence of the revelation of Belady’s Anamoly.<br>
+                2. Most reduced page fault rate of all algorithms and will never suffer from
+                Belady’s Anamoly.<br>
+                3. Just it replaces the pages that won’t be utilized for the longest time frame.<br>
+                4. Optimal page replacement is accurate as possible required, but not possible
+                in practice as the operating system cannot know future requests.<br>
+                5. The utilization of optimal Page replacement is to set up a benchmark so that
+                other replacement algorithms can be analyzed against it.
+            </p>
+        <div>
+
+        <div>
+            <p class ="algo2para2">Advantages of Optimal page replacement</p>
+            <ul>
+                <li>It is free from Belady’s Anamoly.</li>
+                <li>Most reduced page fault rate</li>
+                <li>Twice tantamount to FIFO Page Replacement Algorithm</li>
+  
+            </ul>
+            <p class="algo2para2">Disadvantages of Optimal Page Replacement</p>
+            <ul>
+                <li>Optimal Page Replacement is not possible in practice as the operating system cannot know future requests. The use of Optimal Page replacement is to set up a benchmark so that other replacement algorithms can be analyzed against it.</li>
+                <li>It is hard to execute</li>
+            </ul>
+
+            <div class="example">
+                <h3>Example</h3>
+                <img class ="img2" src="optimal (1).png">
+                <div>
+                    <ol>
+                        <li>Initially all slots are empty, so when 7 0 1 2 are allocated to the empty slots —> 4 Page faults   </li>
+                        <li>0 is already their so —> 0 Page fault.  </li>
+                        <li>when 3 came it will take the place of 7 because it is least recently used —>1 Page fault  </li>
+                        <li>0 is already in memory so —> 0 Page fault.  </li>
+                        <li>4 will takes place of 1 —> 1 Page Fault  </li>
+                        <li>Now for the further page reference string —> 0 Page fault because they are already available in the memory. </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+*{
+    box-sizing :border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #24252A;
+    font-family: "Montserrat",sans-serif;
+    color:#edf0f1;
+}
+h1{
+    color:#edf0f1;
+    font-family: "Montserrat",sans-serif;
+}
+
+li,a,button{
+    font-family: "Montserrat",sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+header{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:10px 5%;
+    width :100vw;
+    height: 10vh;
+    background-color: #24252A;
+}
+.nav_links{
+    list-style: none;
+}
+
+.nav_links li{
+    display:inline-block;
+    padding: 0px 5px;
+}
+
+.nav_links li a{
+    transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover{
+    color: #0088a9
+}
+a:visited{
+    color:#edf0f1;
+}
+
+.intro{
+     margin-left: 10%; 
+    /* margin-right: 10%; */
+    width:80vw;
+    height:40vh;
+    background-image: linear-gradient(to right, rgb(84, 103, 110) , rgb(6, 56, 114));
+    margin-top: 5%;
+}
+.intro p,.intro h1{
+    background-image: linear-gradient(to right, rgb(84, 103, 110) , rgb(6, 56, 114));
+}
+.intro p{
+    padding:2% 4% 2% 4%;
+}
+.intro h1{
+    padding-top: 2%;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+}
+.algos {
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap;
+    margin:3%;
+}
+.firstdiv,.seconddiv,.thirddiv{
+   width: 400px;
+   margin: 20px;
+   background-color: aliceblue;
+   height: 200px;
+   border-radius: 20px;
+}
+  
+  .firstdiv1,.seconddiv1,.thirddiv1 {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    width: 400px;
+    opacity: 1;
+    background-color: aliceblue;
+    /* background-image: linear-gradient(to bottom, rgb(244, 244, 245) , rgb(8, 8, 8));  */
+    border-radius: 20px;
+  }
+  
+  .firstdiv:hover .firstdiv1,.seconddiv:hover .seconddiv1,.thirddiv:hover .thirddiv1 {
+    opacity: 0.8;
+    transition: 1.0s ease-in;
+    background-image: linear-gradient(to bottom, rgb(244, 244, 245) , rgb(8, 8, 8));
+  }
+  
+  .firstdiv2,.seconddiv2,.thirddiv2 {
+    /* background-image: linear-gradient(to bottom, rgb(244, 244, 245) , rgb(8, 8, 8)); */
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: aliceblue;
+    color: #24252A;
+    border: none;
+    /* -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); */
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  /* .algoname{
+      background-color: aliceblue;
+      color: black;
+      text-align: center;
+  } */
+
+  .algo1Heading,.algo2heading{
+      margin-left: 20px;
+      margin-top: 10px;
+  }
+  .mainbody,.mainbody2{
+      margin: 10px;
+      margin-left: 3%;
+      margin-right: 5%;
+  }
+  h3{
+      margin-left: 20px;
+      font-size: 22px;
+      color: #0088a9
+  }
+  .algo1para,.algo2para1{
+      margin: 20px;
+      margin-top: 5px;
+      padding: 2px;
+  }
+  .algo1para2,.algo2para2{
+      margin: 5px;
+      margin-left: 20px;
+      font-weight:bold;
+      font-size: medium;
+  }
+  li{
+      margin-left: 40px;
+      margin-top: 2px;
+  }
+  .example h3{
+    margin-top: 30px;
+    color: #0088a9;
+  }
+  .img1{
+      margin-left: 30%;
+  }
+  .img2{
+      margin-left: 12%;
+      margin-bottom: 20px;
+  }
+  .img4{
+      height: 350px;
+      margin-left: 25%;
+  }
+  .LIFO-question{
+      margin-bottom: 10px;
+      margin-top: 10px;
+      margin-left: 40px;
+
+  }
+ .aboutUs{
+     margin-top : 50px;
+     margin-left: 25%;
+     margin-right: 25%;
+     background-color: black;
+ }
+ .aboutUs h3{
+     text-align: center;
+     margin-bottom: 10px;
+     background-color: black;
+ }
+ .aboutUs p{
+     background-color: black;
+     padding: 20px;
+ }
+ .footer{
+     margin-top: 40px;
+     width: 100vw;
+     height: 10vh;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.footer>p{
+    background-color: black;
+    font-size: 25px;
+}
+
+select {
+    border: 0px;
+    outline: 0px;
+    font-size: 100%;
+    width: 100px;
+}
+
+
+
+

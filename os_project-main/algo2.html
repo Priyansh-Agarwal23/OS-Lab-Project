@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "style.css">
+</head>
+<body>
+    <div>
+        <h1 class="algo2heading">First in First out</h1>
+    </div>
+
+    <div class ="mainbody2">
+        
+         <h3>Theory</h3>
+        
+        <div>
+        <p class="algo2para1">This is the simplest page replacement algorithm. In this algorithm, operating system keeps track of all pages in the memory in a queue, oldest page is in the front of the queue. When a page needs to be replaced page in the front of the queue is selected for removal.<br>The main advantage of the FIFO page replacement algorithm is its simplicity. It is easy to understand and implement. It also uses a queue data structure. The number of operations is limited in a queue makes the implementation simple.<br></p>
+        <div>
+
+        <div>
+            <p class ="algo2para2">Advantages of FIFO</p>
+            <ul>
+                <li>The main advantage of the FIFO page replacement algorithm is its simplicity. It is easy to understand and implement.</li>
+                <li> It also uses a queue data structure. The number of operations is limited in a queue makes the implementation simple.</li>
+                
+            </ul>
+            <p class="algo2para2">Disadvantages of FIFO</p>
+            <ul>
+                <li>When the number of incoming pages is large, it might not provide excellent performance.</li>
+                <li>When we increase the number of frames or capacity to store pages in the queue, it should give us less number of page faults. Sometimes FIFO may behave abnormally, and it may increase the number of page faults. This behavior of FIFO is called Belady's anomaly.</li>
+                <li>In FIFO, the system should keep track of all the frames. Sometimes it results in slow process execution.</li>
+            </ul>
+
+            <div class="example">
+                <h3>Example</h3>
+                <img class="img1" src="fifo2.png">
+                <div>
+                    <ol>
+                        <li>Initially all slots are empty, so when 1, 3, 0 came they are allocated to the empty slots —> 3 Page Faults. </li>
+                        <li>When 3 comes, it is already in  memory so —> 0 Page Faults. </li>
+                        <li>Then 5 comes, it is not available in  memory so it replaces the oldest page slot i.e 1. —>1 Page Fault. </li>
+                        <li>6 comes, it is also not available in memory so it replaces the oldest page slot i.e 3 —>1 Page Fault. </li>
+                        <li>Finally when 3 come it is not available so it replaces 0 1 page fault </li>
+                    </ol>
+                </div>
+            </div>
+            
+            
+        </div>
+
+    </div>
+</body>
+</html>

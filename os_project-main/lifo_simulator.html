@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <link rel="stylesheet" href="OS-Project.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Last In First Out(LIFO)</h1>
+    <br />
+    <div class="inp1">
+      <label>Number of Frames:</label>
+      <input type="number" name="Number of frames" id="frames" class="number" />
+    </div>
+
+    <br /><br />
+
+    <div class="inp2">
+      <label>Order of Pages: </label>
+      <input
+        type="search"
+        name="Order of Pages"
+        id="input"
+        class="order"
+        placeholder="Enter Memory Pages(with spaces)"
+      />
+    </div>
+
+    <br /><br /><br />
+
+    <div class="button">
+      <button
+        type="button"
+        name="button"
+        id="submit"
+        onclick="LIFO(),fillcol(),summary(),createTable()"
+        ;
+      >
+        Submit
+      </button>
+    </div>
+
+    <br /><br /><br />
+
+    <h2>Output</h2>
+
+    <p id="tablename"></p>
+    <p class="cell"></p>
+
+    <div>
+      <table id="table" class="container-text-center"></table>
+      <br>
+      <div
+        id="summary"
+      ></div>
+    </div>
+
+    <script>
+      class lifo {
+        constructor(capacity) {
+          // Initialization of objects.
+
+          this.capacity = capacity;
+          this.pageFaults = 0;
+          this.pageHits = 0;
+          this.searchIndex = -1;
+          this.frames = [];
+        }
+
+        refer(token) {
+          this.searchIndex = this.frames.indexOf(token);
+          if (this.searchIndex != -1) {
+            this.pageHits++;
+          } else {
+            this.pageFaults++;
+            if (this.capacity == this.frames.length) {
+              this.frames.pop();
+            }
+            this.frames.push(token);
+          }
+        }
+      }
+
+      document.getElementById("submit").addEventListener("click", LIFO); // takes input from submit button and execute function LIFO().
+
+      function LIFO() {
+        let res = document.getElementById("input").value.split(" "); // takes sequence of frames
+        let frames = document.getElementById("frames").value; // takes number of frames
+
+        if (frames > 1) {
+          let ref = [];
+          if (res.length > 16) {
+            // length of sequence should not be greater than 16.
+            alert(" please Enter maximum 16 number ");
+          } else {
+            for (let i = 0; i < res.length; i++) {
+              if (res[i] != " " && res[i] != "") {
+                ref.push(res[i]);
+              }
+            }
+            createTable("table", frames, ref); // function to create a table.
+
+            // calling class lifo to enter values in ref[].
+
+            let obj = new lifo(frames);
+            for (let i = 0; i < ref.length; i++) {
+              obj.refer(ref[i]);
+              fillcol("table", i + 1, obj.frames, frames, obj.searchIndex);
+            }
+
+            summary(
+              "summary",
+              obj.pageFaults,
+              obj.pageFaults + obj.pageHits,
+              frames
+            );
+          }
+        } else alert("please enter valid number of frames."); // alert message if number of frames are less than or equal to 1
+      }
+
+      function fillcol(tablename, col, objframes, n, searchindex) {
+        for (let i = 1; i <= objframes.length; i++) {
+          let cell = document.getElementById(tablename + i + "" + col);
+          cell.innerHTML = objframes[i - 1];
+        }
+        n++;
+        let cell = document.getElementById(tablename + n + "" + col);
+        if (searchindex == -1) cell.innerHTML = "MISS";
+        // displays MISS if a new element is entered in the stack.
+        else {
+          cell.innerHTML = "HIT"; // else displays HIT.
+          document
+            .getElementById(tablename + (searchindex + 1) + "" + col)
+            .classList.add("bg-success", "text-white");
+        }
+      }
+
+      function createTable(tablename, frames, ref) {
+        // Inserting values in the table.
+
+        document.getElementById(tablename).innerHTML = "";
+        let table =
+          '<tr class="font-weight-bold"><td id="' +
+          tablename +
+          '00">Reference</td>';
+        for (let i = 0; i < ref.length; i++) {
+          table +=
+            '<td id="' + tablename + "0" + (i + 1) + '">' + ref[i] + "</td>";
+        }
+        table += "</tr>";
+
+        // Time complexity will be O(n^2)
+        // to enter values in a 2d array.
+        for (let i = 0; i < frames; i++) {
+          table +=
+            '<tr><td class="font-weight-bold" id="' +
+            tablename +
+            (i + 1) +
+            '0">Frame ' +
+            (i + 1) +
+            "</td>";
+          for (let j = 0; j < ref.length; j++) {
+            table += '<td id="' + tablename + (i + 1) + (j + 1) + '"></td>';
+          }
+          table += "</tr>";
+        }
+        frames++;
+        table +=
+          '<tr><td class="font-weight-bold" id="' +
+          tablename +
+          frames +
+          '0">Status</td>';
+        for (var j = 1; j <= ref.length; j++) {
+          table += '<td id="' + tablename + frames + j + '"></td>';
+        }
+        table += "</tr>";
+        document.getElementById(tablename).innerHTML += table;
+      }
+
+      // function to print all the information about the output.
+
+      function summary(id, pagefaults, pages, frames) {
+        let summary = "";
+        let missratio = (pagefaults / pages).toPrecision(2);
+        let hitratio = (1 - missratio).toPrecision(2);
+        summary += `<div>Pages:${pages}</div>`;
+        summary += `<div>Frames:${frames}</div>`;
+        summary += `<div>Hits:${pages - pagefaults}</div>`;
+        summary += `<div>Faults:${pagefaults}</div>`;
+        summary += `<div>Hit Ratio:${hitratio}</div>`;
+        summary += `<div>Miss Ratio:${missratio}</div>`;
+        document.getElementById(id).innerHTML = summary;
+      }
+
+      function reset() {
+        location.reload();
+      }
+    </script>
+  </body>
+</html>

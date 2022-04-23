@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "style.css">
+</head>
+<body>
+    <div>
+        <h1 class="algo2heading">Least Recently Used</h1>
+    </div>
+
+    <div class ="mainbody2">
+        
+         <h3>Theory</h3>
+        
+        <div>
+        <p class="algo2para1">1) LRU Page Replacement Algorithm is a Greedy algorithm where the page to be replaced is least recently used.<br>
+            2) The idea is based on locality of reference, the least recently used page is not likely to come again and the pages that have been used most times in the last few instructions will probably be used again and again.<br>
+            3) LRU works opposite to Optimal Page Replacement Algorithm as LRU Algorithm is dependent on previous requests while the latter is dependent on future requests.<br>
+            4) To implement LRU, we will maintain a stack to store previous requests. This stack will then be continuously updated accordingly.
+            </p>
+        <div>
+
+        <div>
+            <p class ="algo2para2">Advantages of LRU</p>
+            <ul>
+                <li>It is free from Belady’s Anamoly.</li>
+                <li>Easy to choose page which has faulted and hasn’t been used for a long time.</li>
+  
+            </ul>
+            <p class="algo2para2">Disadvantages of LRU</p>
+            <ul>
+                <li>Too costly.</li>
+                <li>Requires high hardware assistance.</li>
+                <li>Hard to implement.</li>
+            </ul>
+
+            <div class="example">
+                <h3>Example</h3>
+                <img class ="img2" src="optimal2.png">
+                <div>
+                    <ol>
+                        <li>Initially all slots are empty, so when 7 0 1 2 are allocated to the empty slots —> 4 Page faults  </li>
+                        <li>0 is already their so —> 0 Page fault.  </li>
+                        <li>when 3 came it will take the place of 7 because it is least recently used —>1 Page fault  </li>
+                        <li>0 is already in memory so —> 0 Page fault.  </li>
+                        <li>4 will takes place of 1 —> 1 Page Fault  </li>
+                        <li>Now for the further page reference string —> 0 Page fault because they are already available in the memory. </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="simulation">Simulation</button>
+</body>
+</html>

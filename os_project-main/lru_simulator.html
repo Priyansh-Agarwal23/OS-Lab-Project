@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <link rel="stylesheet" href="OS-Project.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Least Recently Used(LRU)</h1>
+    <br />
+    <div class="inp1">
+      <label>Number of Frames:</label>
+      <input type="number" name="Number of frames" id="frames" class="number" />
+    </div>
+
+    <br /><br />
+
+    <div class="inp2">
+      <label>Order of Pages: </label>
+      <input
+        type="search"
+        name="Order of Pages"
+        id="input"
+        class="order"
+        placeholder="Enter Memory Pages(with spaces)"
+        oninput="validation(event)"
+      />
+    </div>
+
+    <br /><br /><br />
+
+    <div class="button">
+      <button
+        type="button"
+        name="button"
+        id="submit"
+        onclick="LRU(),fillcol(),summary(),createTable()"
+        ;
+      >
+        Submit
+      </button>
+    </div>
+
+    <br /><br /><br />
+
+    <h2>Output</h2>
+
+    <p id="tablename"></p>
+    <p class="cell"></p>
+
+    <div>
+      <table id="table"></table>
+      <br />
+      <div id="summary"></div>
+    </div>
+  </body>
+</html>
+
+<script>
+  // function to check input is valid or not.
+  // Time Complexity O(1)
+    function validation(event) {
+    let inp2 = event.target.value;
+    if (!/^[0-9 ]+$/.test(inp2)) {
+      alert("invalid input.");
+    }
+  }
+  class node {
+    constructor(data) {
+      this.data = data;
+      this.l = null;
+      this.r = null;
+    }
+  }
+  class Dequeue {
+    constructor() {
+      this.left = null;
+      this.right = null;
+      this.size = 0;
+    }
+    addFront(x) {
+      let newNode = new node(x);
+      newNode.r = this.left;
+      if (this.left != null) this.left.l = newNode;
+      else {
+        this.right = newNode;
+      }
+      this.left = newNode;
+      this.size++;
+    }
+
+    deleteLast() {
+      let tmp = this.right;
+      this.right = tmp.l;
+      this.right.r = null;
+      this.size--;
+    }
+    delete(x) {
+      if (x == null) return;
+      //first element
+      if (x == this.left && x == this.right) {
+        this.left = null;
+        this.right = null;
+        this.size--;
+        return;
+      }
+      if (x == this.left) {
+        this.left = x.r;
+        x.r.l = null;
+        this.size--;
+        return;
+      }
+      if (x == this.right) {
+        this.right = x.l;
+        this.right.r = null;
+        this.size--;
+        return;
+      }
+      x.l.r = x.r;
+      x.r.l = x.l;
+      this.size--;
+    }
+    display() {
+      let fr = [];
+      let temp = this.left;
+      while (temp != null) {
+        fr.push(temp.data);
+        temp = temp.r;
+      }
+      return fr;
+    }
+  }
+  class lru {
+    constructor(capacity) {
+      // Initialization of objects.
+      this.capacity = capacity;
+      this.pageFaults = 0;
+      this.pageHits = 0;
+      this.searchIndex = -1;
+      this.map = new Map();
+      this.dequeue = new Dequeue();
+    }
+
+    // token is use to get the pages
+    // the hash map is used to search if the page is present in the working column or not.
+    refer(token) {
+      if (this.map.has(token)) {
+        this.pageHits++;
+        this.searchIndex = 0;
+        this.dequeue.delete(this.map.get(token));
+        this.map.delete(token);
+      } else {
+        this.pageFaults++;
+        this.searchIndex = -1;
+        if (this.capacity == this.dequeue.size) {
+          this.dequeue.deleteLast();
+          this.map.delete(this.frames[this.frames.length - 1]);
+        }
+      }
+      this.dequeue.addFront(token);
+      this.map.set(token, this.dequeue.left);
+      this.frames = this.dequeue.display();
+    }
+  }
+
+  document.getElementById("submit").addEventListener("click", LRU);
+  // Time complexity will be O(n).
+
+  function LRU() {
+    let res = document.getElementById("input").value.split(" ");
+    let frames = document.getElementById("frames").value;
+
+    if (frames > 1) {  
+      let ref = [];
+      if (res.length > 16) {
+        alert(" please Enter maximum 16 number ");
+      } else {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i] != " " && res[i] != "") {
+            ref.push(res[i]);
+          }
+        }
+        createTable("table", frames, ref);
+        let obj = new lru(frames);
+        for (let i = 0; i < ref.length; i++) {
+          obj.refer(ref[i]);
+          fillcol("table", i + 1, obj.frames, frames, obj.searchIndex);
+        }
+        summary(
+          "summary",
+          obj.pageFaults,
+          obj.pageFaults + obj.pageHits,
+          frames
+        );
+      }
+    } else alert(" please enter valid number of frames "); // alert message if number of frames are invalid.
+  }
+
+  // Time complexity O(n).
+  function fillcol(tablename, col, objframes, n, searchindex) {
+    for (let i = 1; i <= objframes.length; i++) {
+      let cell = document.getElementById(tablename + i + "" + col);
+      cell.innerHTML = objframes[i - 1];
+    }
+    n++;
+    let cell = document.getElementById(tablename + n + "" + col);
+    if (searchindex == -1) cell.innerHTML = "MISS";  // displays MISS if a page fault occurs.
+    else {
+      cell.innerHTML = "HIT";  // else displays HIT.
+      document
+        .getElementById(tablename + (searchindex + 1) + "" + col)
+        .classList.add("bg-success", "text-white");
+    }
+  }
+
+  // function to create table.
+  function createTable(tablename, frames, ref) {
+    document.getElementById(tablename).innerHTML = "";
+    let table =
+      '<tr class="font-weight-bold"><td id="' +
+      tablename +
+      '00">Reference</td>';
+    for (let i = 0; i < ref.length; i++) {
+      table += '<td id="' + tablename + "0" + (i + 1) + '">' + ref[i] + "</td>";
+    }
+    table += "</tr>";
+
+    // Time complexity will be O(frames * ref.length).
+    for (let i = 0; i < frames; i++) {
+      table +=
+        '<tr><td class="font-weight-bold" id="' +
+        tablename +
+        (i + 1) +
+        '0">Frame ' +
+        (i + 1) +
+        "</td>";
+      for (let j = 0; j < ref.length; j++) {
+        table += '<td id="' + tablename + (i + 1) + (j + 1) + '"></td>';
+      }
+      table += "</tr>";
+    }
+    frames++;
+    table +=
+      '<tr><td class="font-weight-bold" id="' +
+      tablename +
+      frames +
+      '0">Status</td>';
+    for (var j = 1; j <= ref.length; j++) {
+      table += '<td id="' + tablename + frames + j + '"></td>';
+    }
+    table += "</tr>";
+    console.log(table);
+    document.getElementById(tablename).innerHTML += table;
+  }
+// function to print information about output.
+
+  function summary(id, pagefaults, pages, frames) {
+    let summary = "";
+    let missratio = (pagefaults / pages).toPrecision(2);
+    let hitratio = (1 - missratio).toPrecision(2);
+    summary += `<div>Pages:${pages}</div>`;
+    summary += `<div>Frames:${frames}</div>`;
+    summary += `<div>Hits:${pages - pagefaults}</div>`;
+    summary += `<div>Faults:${pagefaults}</div>`;
+    summary += `<div>Hit Ratio:${hitratio}</div>`;
+    summary += `<div>Miss Ratio:${missratio}</div>`;
+    document.getElementById(id).innerHTML = summary;
+  }
+</script>
