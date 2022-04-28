@@ -73,7 +73,8 @@
           this.searchIndex = this.frames.indexOf(token);
           if (this.searchIndex != -1) {
             this.pageHits++;
-          } else {
+          }
+           else {
             this.pageFaults++;
             if (this.capacity == this.frames.length) {
               this.frames.pop();
@@ -91,10 +92,10 @@
 
         if (frames > 1) {
           let ref = [];
-          if (res.length > 16) {
-            // length of sequence should not be greater than 16.
-            alert(" please Enter maximum 16 number ");
-          } else {
+          if (res.length > 16) 
+          // length of sequence should not be greater than 16.
+          alert(" please Enter maximum 16 number ");
+          else {
             for (let i = 0; i < res.length; i++) {
               if (res[i] != " " && res[i] != "") {
                 ref.push(res[i]);
@@ -117,7 +118,9 @@
               frames
             );
           }
-        } else alert("please enter valid number of frames."); // alert message if number of frames are less than or equal to 1
+        } 
+        else 
+        alert("please enter valid number of frames."); // alert message if number of frames are less than or equal to 1
       }
 
       function fillcol(tablename, col, objframes, n, searchindex) {
@@ -127,13 +130,11 @@
         }
         n++;
         let cell = document.getElementById(tablename + n + "" + col);
-        if (searchindex == -1) cell.innerHTML = "MISS";
-        // displays MISS if a new element is entered in the stack.
+        if (searchindex == -1)
+         cell.innerHTML = "MISS";  // displays MISS if a new element is entered in the stack.
         else {
           cell.innerHTML = "HIT"; // else displays HIT.
-          document
-            .getElementById(tablename + (searchindex + 1) + "" + col)
-            .classList.add("bg-success", "text-white");
+          document.getElementById(tablename + (searchindex + 1) + "" + col).classList.add("bg-success", "text-white");
         }
       }
 
@@ -141,40 +142,24 @@
         // Inserting values in the table.
 
         document.getElementById(tablename).innerHTML = "";
-        let table =
-          '<tr class="font-weight-bold"><td id="' +
-          tablename +
-          '00">Reference</td>';
-        for (let i = 0; i < ref.length; i++) {
-          table +=
-            '<td id="' + tablename + "0" + (i + 1) + '">' + ref[i] + "</td>";
-        }
+        let table ='<tr class="font-weight-bold"><td id="' +tablename +'00">Reference</td>';
+        for (let i = 0; i < ref.length; i++) 
+        table +='<td id="' + tablename + "0" + (i + 1) + '">' + ref[i] + "</td>";
         table += "</tr>";
 
         // Time complexity will be O(n^2)
         // to enter values in a 2d array.
         for (let i = 0; i < frames; i++) {
-          table +=
-            '<tr><td class="font-weight-bold" id="' +
-            tablename +
-            (i + 1) +
-            '0">Frame ' +
-            (i + 1) +
-            "</td>";
+          table +='<tr><td class="font-weight-bold" id="' +tablename +(i + 1) +'0">Frame ' +(i + 1) +"</td>";
           for (let j = 0; j < ref.length; j++) {
             table += '<td id="' + tablename + (i + 1) + (j + 1) + '"></td>';
           }
           table += "</tr>";
         }
         frames++;
-        table +=
-          '<tr><td class="font-weight-bold" id="' +
-          tablename +
-          frames +
-          '0">Status</td>';
-        for (var j = 1; j <= ref.length; j++) {
-          table += '<td id="' + tablename + frames + j + '"></td>';
-        }
+        table +='<tr><td class="font-weight-bold" id="' +tablename +frames +'0">Status</td>';
+        for (var j = 1; j <= ref.length; j++) 
+        table += '<td id="' + tablename + frames + j + '"></td>';
         table += "</tr>";
         document.getElementById(tablename).innerHTML += table;
       }
@@ -192,10 +177,6 @@
         summary += `<div>Hit Ratio:${hitratio}</div>`;
         summary += `<div>Miss Ratio:${missratio}</div>`;
         document.getElementById(id).innerHTML = summary;
-      }
-
-      function reset() {
-        location.reload();
       }
     </script>
   </body>
