@@ -19,26 +19,13 @@
 
     <div class="inp2">
       <label>Order of Pages: </label>
-      <input
-        type="search"
-        name="Order of Pages"
-        id="input"
-        class="order"
-        placeholder="Enter Memory Pages(with spaces)"
-        oninput="validation(event)"
-      />
+      <input type="search" name="Order of Pages" id="input" class="order" placeholder="Enter Memory Pages(with spaces)" oninput="validation(event)"/>
     </div>
 
     <br /><br /><br />
 
     <div class="button">
-      <button
-        type="button"
-        name="button"
-        id="submit"
-        onclick="OPTIMAL(),fillcol(),summary(),createTable()"
-        ;
-      >
+      <button type="button" name="button" id="submit" onclick="OPTIMAL(),fillcol(),summary(),createTable()";>
         Submit
       </button>
     </div>
@@ -63,9 +50,8 @@
   // Time Complexity will be O(1).
   function validation(event) {
     let inp2 = event.target.value;
-    if (!/^[0-9 ]+$/.test(inp2)) {
-      alert("invalid input.");
-    }
+    if (!/^[0-9 ]+$/.test(inp2)) 
+    alert("invalid input.");
   }
   class optimal {
     constructor(capacity) {
@@ -122,7 +108,7 @@
       else {
         for (let i = 0; i < res.length; i++) {
           if (res[i] != " " && res[i] != "") {
-            ref.push(res[i]);
+          ref.push(res[i]);
           }
         }
       }
@@ -137,9 +123,8 @@
       }
       summary("summary", obj.pageFaults, obj.pageFaults + obj.pageHits, frames);
     } 
-    else {
-      alert(" please enter valid number of frames ");  // alert message if number of frames are invalid.
-    }
+    else
+    alert(" please enter valid number of frames ");  // alert message if number of frames are invalid.
   }
   
   // Function to enter values in table. 
@@ -152,7 +137,7 @@
     n++;
     let cell = document.getElementById(tablename + n + "" + col);
     if (searchindex == -1)
-      cell.innerHTML = "MISS";  // displays MISS if a page fault occurs.
+    cell.innerHTML = "MISS";  // displays MISS if a page fault occurs.
     else {
       cell.innerHTML = "HIT";  // else displays HIT.
       document.getElementById(tablename + (searchindex + 1) + "" + col).classList.add("bg-success", "text-white");

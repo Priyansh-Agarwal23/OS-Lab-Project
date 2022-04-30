@@ -19,26 +19,13 @@
 
     <div class="inp2">
       <label>Order of Pages: </label>
-      <input
-        type="search"
-        name="Order of Pages"
-        id="input"
-        class="order"
-        placeholder="Enter Memory Pages(with spaces)"
-        oninput="validation(event)"
-      />
+      <input type="search" name="Order of Pages" id="input" class="order" placeholder="Enter Memory Pages(with spaces)" oninput="validation(event)"/>
     </div>
 
     <br /><br /><br />
 
     <div class="button">
-      <button
-        type="button"
-        name="button"
-        id="submit"
-        onclick="LRU(),fillcol(),summary(),createTable()"
-        ;
-      >
+      <button type="button" name="button" id="submit" onclick="LRU(),fillcol(),summary(),createTable()";>
         Submit
       </button>
     </div>
@@ -63,9 +50,8 @@
   // Time Complexity O(1)
     function validation(event) {
     let inp2 = event.target.value;
-    if (!/^[0-9 ]+$/.test(inp2)) {
-      alert("invalid input.");
-    }
+    if (!/^[0-9 ]+$/.test(inp2)) 
+    alert("invalid input.");
   }
   class node {
     constructor(data) {
@@ -84,9 +70,8 @@
       let newNode = new node(x);
       newNode.r = this.left;
       if (this.left != null) this.left.l = newNode;
-      else {
+      else 
         this.right = newNode;
-      }
       this.left = newNode;
       this.size++;
     }
@@ -189,12 +174,7 @@
           obj.refer(ref[i]);
           fillcol("table", i + 1, obj.frames, frames, obj.searchIndex);
         }
-        summary(
-          "summary",
-          obj.pageFaults,
-          obj.pageFaults + obj.pageHits,
-          frames
-        );
+        summary("summary",obj.pageFaults,obj.pageFaults + obj.pageHits,frames);
       }
     } 
     else 

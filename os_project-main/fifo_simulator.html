@@ -19,23 +19,13 @@
 
     <div class="inp2">
       <label>Order of Pages: </label>
-      <input
-        type="search"
-        name="Order of Pages"
-        id="input"
-        class="order"
-        placeholder="Enter Memory Pages(with spaces)"
-      />
+      <input type="search" name="Order of Pages" id="input" class="order" placeholder="Enter Memory Pages(with spaces)" oninput="validation(event)"/>
     </div>
 
     <br /><br /><br />
 
     <div class="button">
-      <button
-        type="button"
-        name="button"
-        id="submit"
-        onclick="FIFO(),fillcol(),summary(),createTable()";>
+      <button type="button" name="button" id="submit" onclick="FIFO(),fillcol(),summary(),createTable()";>
         Submit
       </button>
     </div>
@@ -56,6 +46,14 @@
 </html>
 
 <script>
+  // function to check input is valid or not.
+  // Time Complexity O(1)
+  function validation(event) {
+    let inp2 = event.target.value;
+    if (!/^[0-9 ]+$/.test(inp2)) 
+    alert("invalid input.");
+  }
+  
   class fifo {
 
     // Initialization of objects.
@@ -71,9 +69,9 @@
       if (this.searchIndex == -1) {
         this.pageFaults++;
         this.frames.push(token);
-        if (this.frames.length > this.capacity) {
-          this.frames.shift();
-        }
+        if (this.frames.length > this.capacity) 
+        this.frames.shift();
+        
       } 
       else this.pageHits++;
     }
@@ -83,24 +81,30 @@
   function FIFO() {
     let res = document.getElementById("input").value.split(" ");
     let frames = document.getElementById("frames").value;
-    let ref = [];
-    if (res.length > 16) 
-    alert(" please Enter maximum 16 number ");
-    else {
-      for (let i = 0; i < res.length; i++) {
-        if (res[i] != " " && res[i] != "") {
-          ref.push(res[i]);
+
+    if(frames > 1) {
+      let ref = [];
+      if (res.length > 16) 
+      alert(" please Enter maximum 16 number ");
+      else {
+        for (let i = 0; i < res.length; i++) {
+          if (res[i] != " " && res[i] != "") {
+            ref.push(res[i]);
+          }
         }
+        createTable("table", frames, ref);
+        let obj = new fifo(frames);
+        for (let i = 0; i < ref.length; i++) {
+          obj.refer(ref[i]);
+          fillcol("table", i + 1, obj.frames, frames, obj.searchIndex);
+        }
+        summary("summary", obj.pageFaults, obj.pageFaults + obj.pageHits, frames);
       }
-      createTable("table", frames, ref);
-      let obj = new fifo(frames);
-      for (let i = 0; i < ref.length; i++) {
-        obj.refer(ref[i]);
-        fillcol("table", i + 1, obj.frames, frames, obj.searchIndex);
-      }
-      summary("summary", obj.pageFaults, obj.pageFaults + obj.pageHits, frames);
     }
+    else
+    alert("please enter valid number of frames.");
   }
+
 
   function fillcol(tablename, col, objframes, n, searchindex) {
     for (let i = 1; i <= objframes.length; i++) {
